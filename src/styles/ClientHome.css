@@ -22,9 +22,8 @@
     border-radius: 50%;
   }
   
-  /* Title and header text */
   .title {
-    color: var(--secondary-main); /* Adjust this according to your theme */
+    color: var(--secondary-main); 
   }
   
   .headerText {

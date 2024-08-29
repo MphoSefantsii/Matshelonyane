@@ -13,7 +13,6 @@ const dummyRequestData = [
 ];
 
 function JobPosting() {
-  // Use dummy data instead of fetching from API
   const requestData = dummyRequestData;
 
   return (

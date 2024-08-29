@@ -2,8 +2,8 @@ import React from 'react';
 import { Box, Card, Stack, Typography, Button } from '@mui/material';
 import PhoneIcon from '../../../assets/phoness.svg';
 import { useNavigate } from 'react-router-dom';
+import '../../../styles/JobDisplay.css'; 
 
-// Mock data for demonstration purposes
 const mockRequestData = [
   {
     _id: '1',
@@ -28,75 +28,27 @@ const mockCustomerData = {
   customer2: { firstName: 'Jane', account: { number: '987-654-3210' } }
 };
 
+// Use JSONPlaceholder images for placeholder profile pictures
 const mockCustomerImages = {
-  customer1: 'data:image/jpeg;base64,...', // Example base64 image data
-  customer2: 'data:image/jpeg;base64,...' // Example base64 image data
+  customer1: 'https://via.placeholder.com/150?text=John', // Placeholder with text "John"
+  customer2: 'https://via.placeholder.com/150?text=Jane'  // Placeholder with text "Jane"
 };
 
 function JobDisplay() {
   const navigate = useNavigate();
 
   const acceptPost = (id) => {
-    console.log(`Accept post with ID: ${id}`);
+    alert('Application processed');
     // Simulate handling the post acceptance
-    navigate('/truckerjobpost');
-  };
-
-  // Styling objects
-  const styledProfileBox = {
-    borderRadius: '30px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#EBDBD5',
-    padding: 0,
-    borderradius: '50px',
-    marginLeft: 1,
-    height: '40px',
-    width: '40px',
-    boxShadow: '4px 4px 6px rgba(0, 0, 0, 0.3)'
-  };
-  const styledStackTypography = {
-    color: 'F8F8F8',
-    fontSize: '16px',
-    fontWeight: 500
-  };
-  const styledNotAppliedButton = {
-    fontSize: '14px',
-    width: '180px',
-    borderRadius: '5px',
-    height: '25px',
-    color: '#FFF5EF',
-    backgroundColor: '#C08288',
-    textTransform: 'none'
-  };
-  const styledIsAppliedButton = {
-    fontSize: '14px',
-    width: '180px',
-    borderRadius: '5px',
-    height: '25px',
-    color: '#FFF5EF',
-    backgroundColor: 'gray',
-    textTransform: 'none'
+    // navigate('/truckerjobpost'); // Commented out as we only need an alert
   };
 
   return (
-    <div style={{ height: 'calc(100vh - 100px)', overflowY: 'auto', backgroundColor: '#EEEFF3' }}>
+    <div className="job-display-container">
       <Box flexGrow={1} marginTop={2} marginLeft={2} marginRight={2}>
         {mockRequestData.length > 0 ? (
           mockRequestData.map((job) => (
-            <Card
-              key={job._id}
-              sx={{
-                width: '103%',
-                backgroundColor: '#FFF',
-                paddingTop: '15px',
-                marginBottom: '15px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}
-            >
+            <Card key={job._id} className="job-card">
               <Box
                 sx={{
                   width: '100%',
@@ -116,7 +68,7 @@ function JobDisplay() {
                   }}
                 >
                   <Box
-                    sx={{ ...styledProfileBox, marginTop: '-40px' }}
+                    className="profile-box"
                     onClick={() => {
                       console.log(`Navigate to profile page for job ID ${job._id}`);
                       navigate(`/truckerproposalpage/${job._id}`, {
@@ -129,9 +81,9 @@ function JobDisplay() {
                     }}
                   >
                     <img
-                      src={mockCustomerImages[job.customer] ? mockCustomerImages[job.customer] : ''}
+                      src={mockCustomerImages[job.customer] || ''}
+                      className="profile-image"
                       alt="Customer"
-                      style={{ width: '44px', height: '44px', borderRadius: 20 }}
                     />
                   </Box>
                 </Box>
@@ -145,22 +97,8 @@ function JobDisplay() {
                     justifyContent: 'space-between'
                   }}
                 >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      color: 'white',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        width: '100%',
-                        marginRight: '50px'
-                      }}
-                    >
+                  <Box className="job-info">
+                    <Box className="job-details">
                       <Typography sx={{ fontSize: '15px', color: '#000' }}>
                         {mockCustomerData[job.customer]?.firstName || 'N/A'}
                       </Typography>
@@ -168,16 +106,7 @@ function JobDisplay() {
                       <Typography sx={{ fontSize: '15px', color: '#000' }}>Destination:</Typography>
                       <Typography sx={{ fontSize: '15px', color: '#000' }}>Price:</Typography>
                     </Box>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        width: '100%',
-                        marginLeft: '-30px',
-                        marginTop: '5px',
-                        marginRight: '5px'
-                      }}
-                    >
+                    <Box className="job-values">
                       <Typography
                         sx={{ fontSize: '15px', color: '#000', marginTop: '-8px !important' }}
                       >
@@ -210,7 +139,7 @@ function JobDisplay() {
               <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '10px' }}>
                 <Button
                   variant="contained"
-                  sx={job.status === 'posted' ? styledNotAppliedButton : styledIsAppliedButton}
+                  className={`apply-button ${job.status === 'posted' ? 'not-applied' : 'is-applied'}`}
                   onClick={() => {
                     if (job.status === 'posted') {
                       acceptPost(job._id);
@@ -228,7 +157,7 @@ function JobDisplay() {
             </Card>
           ))
         ) : (
-          <Typography>No job requests available</Typography>
+          <Typography className="no-job-text">No job requests available</Typography>
         )}
       </Box>
     </div>

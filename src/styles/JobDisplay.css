@@ -1,0 +1,82 @@
+.job-display-container {
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    background-color: #EEEFF3;
+  }
+  
+  .job-card {
+    width: 103%;
+    background-color: #FFF;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-box {
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EBDBD5;
+    padding: 0;
+    border-radius: 50px;
+    margin-left: 1px;
+    height: 40px;
+    width: 40px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+    margin-top: -40px;
+  }
+  
+  .profile-image {
+    width: 44px;
+    height: 44px;
+    border-radius: 20px;
+  }
+  
+  .job-info {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    align-items: center;
+  }
+  
+  .job-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-right: 50px;
+  }
+  
+  .job-values {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: -30px;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+  
+  .apply-button {
+    font-size: 14px;
+    width: 180px;
+    border-radius: 5px;
+    height: 25px;
+    color: #FFF5EF;
+    text-transform: none;
+  }
+  
+  .not-applied {
+    background-color: #C08288;
+  }
+  
+  .is-applied {
+    background-color: gray;
+  }
+  
+  .no-job-text {
+    text-align: center;
+    margin-top: 20px;
+  }
+  

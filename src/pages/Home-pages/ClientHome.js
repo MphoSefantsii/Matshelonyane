@@ -37,8 +37,8 @@ const ClientHome = () => {
       setIsLoadingData(false);
       setIsLoadingTruckers(false);
       setLocation([
-        { _id: '65434e0376d09d13951a4314', name: 'Area 1' },
-        { _id: '65434e0376d09d13951a4315', name: 'Area 2' }
+        { _id: '65434e0376d09d13951a4314', name: 'Hlotse' },
+        { _id: '65434e0376d09d13951a4315', name: 'Maiseng' }
       ]);
       setTruckersData([
         {
