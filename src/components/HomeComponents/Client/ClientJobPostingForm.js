@@ -136,8 +136,8 @@ function ClientJobPostingForm() {
                     id="truckTypeID"
                     sx={styledSelect}
                   >
-                    <MenuItem value="truck1">Truck Type 1</MenuItem>
-                    <MenuItem value="truck2">Truck Type 2</MenuItem>
+                    <MenuItem value="truck1">Half Truck</MenuItem>
+                    <MenuItem value="truck2">Full Truck</MenuItem>
                   </Select>
                 </FormControl>
               </Stack>
@@ -157,8 +157,8 @@ function ClientJobPostingForm() {
                     </Box>
                   </InputLabel>
                   <Select labelId="location-label" id="deliveryAreaID" variant="standard">
-                    <MenuItem value="location1">Location 1</MenuItem>
-                    <MenuItem value="location2">Location 2</MenuItem>
+                    <MenuItem value="location1">Maseru</MenuItem>
+                    <MenuItem value="location2">Leribe</MenuItem>
                   </Select>
                 </FormControl>
               </Stack>
