@@ -22,16 +22,16 @@ import { useState, useEffect } from 'react';
 const TruckerProposalPage = () => {
   const navigate = useNavigate();
   const [selectedJob, setSelectedJob] = useState({
-    cargoDescription: 'Example Cargo Description',
-    truckType: { name: 'Example Truck Type' },
-    pickupLocation: 'Example Pickup Location',
-    dropOffLocation: 'Example Drop-off Location',
-    pickupTime: '2024-08-28T15:00:00Z',
-    pickupInstructions: 'Example Pickup Instructions',
+    cargoDescription: 'Palletized and shrink-wrapped',
+    truckType: { name: 'Dry Van' },
+    pickupLocation: 'Thetsane',
+    dropOffLocation: 'Maiseng',
+    pickupTime: '2024-08-30',
+    pickupInstructions: 'Handle with care, fragile items. Keep dry. Temperature-controlled environment required.',
     requireLoadingService: true,
     pricePerLoad: '$100',
-    createdAt: '2024-08-27T12:00:00Z',
-    customer: 'exampleCustomerId'
+    createdAt: '2024-08-27',
+    customer: '21w312'
   });
   const [customerData, setCustomerData] = useState({
     exampleCustomerId: {
