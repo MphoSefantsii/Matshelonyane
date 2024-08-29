@@ -9,9 +9,9 @@ import theme from '../../theme/theme';
 
 const TruckerHome = () => {
   const staticLocations = [
-    { _id: '1', name: 'Location 1' },
-    { _id: '2', name: 'Location 2' },
-    { _id: '3', name: 'Location 3' }
+    { _id: '1', name: 'Maseru' },
+    { _id: '2', name: 'Leribe' },
+    { _id: '3', name: 'Botha Bothe' }
   ];
 
   const [location, setLocation] = useState(staticLocations);

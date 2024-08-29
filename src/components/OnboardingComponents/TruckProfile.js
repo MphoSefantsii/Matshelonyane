@@ -1,21 +1,10 @@
-import { React, useState, useEffect } from 'react';
-import { Avatar, Stack } from '@mui/material';
-import {
-  Box,
-  FormControl,
-  TextField,
-  Typography,
-  Button,
-  InputLabel,
-  Select,
-  MenuItem
-} from '@mui/material';
+import React, { useState } from 'react';
+import { Avatar, Stack, Box, FormControl, TextField, Typography, Button, InputLabel, Select, MenuItem } from '@mui/material';
 import AccountIcon from '../../assets/account.svg';
 import WeightIcon from '../../assets/weight.svg';
 import TruckIcon from '../../assets/truck.svg';
 import ProgressBar from './ProgressBar';
-import { TruckRetrieveEndpoint, TruckRegisterEndPoint } from '../../services/EndPoints';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function TruckProfile() {
   const initialFormState = {
@@ -28,45 +17,23 @@ function TruckProfile() {
     truckTypeError: '',
     maxLoadCapacityError: ''
   };
+
   const [formData, setFormData] = useState(initialFormState);
   const [formErrors, setFormErrors] = useState(initialErrorState);
   const [avatarImage, setAvatarImage] = useState(null);
   const [currentStep, setCurrentStep] = useState(3);
-
   const [file, setFile] = useState(null);
+  const [truckType, setTruckType] = useState([
+    { _id: '1', name: 'Flatbed Truck' },
+    { _id: '2', name: 'Refrigerated Truck' },
+    { _id: '3', name: 'Dump Truck' }
+  ]); // Set predefined truck types
+  const [selectedTruckType, setSelectedTruckType] = useState('');
+
   const navigate = useNavigate();
 
-  const [truckType, setTruckType] = useState([]);
-  const [selectedTruckType, setSelectedTruckType] = useState([]);
-  const TokenSession = sessionStorage.getItem('Tokens');
-  const accessToken = JSON.parse(TokenSession).accessToken;
-
-  useEffect(() => {
-    const fetchTruckData = async () => {
-      try {
-        getTruckTypes(accessToken);
-      } catch (error) {
-        console.error('Error fetching truck types: ', error);
-      }
-    };
-
-    fetchTruckData();
-  }, [accessToken]);
-
-  const getTruckTypes = (accessToken) => {
-    TruckRetrieveEndpoint(accessToken)
-      .then((truckData) => {
-        setTruckType(truckData.data);
-      })
-      .catch((error) => {
-        console.log(error, 'Error Fetching Data');
-      });
-  };
-
-  const handleTrucktypeChange = async (event) => {
-    const selectedTruckType = event.target.value;
-    setSelectedTruckType(selectedTruckType);
-    console.log('Selected Truck Type:', selectedTruckType);
+  const handleTrucktypeChange = (event) => {
+    setSelectedTruckType(event.target.value);
   };
 
   const handleInputChange = (e) => {
@@ -75,68 +42,35 @@ function TruckProfile() {
   };
 
   const validateForm = () => {
-    console.log('validateForm called');
     const { platNumber, maxLoadCapacity } = formData;
 
     const errors = {};
     if (!platNumber) {
       errors.platNumberError = 'Plate number is required';
     } else if (!/^[A-Z]\s\d{3}\s[A-Z]{3}$/.test(platNumber)) {
-      errors.platNumberError = 'Plate number must follow the format  B 123 ABC';
+      errors.platNumberError = 'Plate number must follow the format B 123 ABC';
     }
     if (!maxLoadCapacity) {
       errors.maxLoadCapacityError = 'Weight Capacity is required';
     }
 
     setFormErrors(errors);
-    console.log('validateForm');
     if (Object.keys(errors).length === 0) {
-      const truckData = new FormData();
-      truckData.append('platNumber', formData.platNumber);
-      truckData.append('truckType', selectedTruckType);
-      truckData.append('maxLoadCapacity', formData.maxLoadCapacity);
-      truckData.append('file', file);
-
-      registerTruck(truckData, accessToken);
+      // Form is valid, handle form submission here if needed
+      navigate('/truckerhome');
     }
-  };
-
-  const registerTruck = (truckData, accessToken) => {
-    TruckRegisterEndPoint(truckData, accessToken)
-      .then((response) => {
-        if (response.status === 200) {
-          navigate('/truckprofilecomplete');
-        }
-      })
-      .catch((error) => {
-        console.log(error, 'Error Fetching Data');
-      });
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
     if (file) {
       const reader = new FileReader();
-
       setFile(file);
 
       reader.onload = (e) => {
         setAvatarImage(e.target.result);
       };
-
       reader.readAsDataURL(file);
-    }
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const handleButtonClick = () => {
-    if (currentStep === 1) {
-      setCurrentStep(2);
-    } else if (currentStep === 2) {
-      setCurrentStep(3);
-    } else if (currentStep === 3) {
-      navigate('/truckprofilecomplete');
     }
   };
 
@@ -156,6 +90,7 @@ function TruckProfile() {
     display: 'flex',
     alignItems: 'center'
   };
+
   const styledAvatarBox = {
     display: 'flex',
     justifyContent: 'center',
@@ -170,7 +105,7 @@ function TruckProfile() {
           <ProgressBar currentStep={currentStep} />
         </Box>
         <Typography
-        variant='h1'
+          variant='h1'
           sx={{
             color: 'white',
             textAlign: 'center',
@@ -190,14 +125,14 @@ function TruckProfile() {
         <label htmlFor="truckPic">
           <Box sx={styledAvatarBox}>
             {avatarImage ? (
-              <Avatar alt="User Avatar" src={avatarImage} sx={{ width: 130, height: 130 }} />
+              <Avatar alt="Truck Avatar" src={avatarImage} sx={{ width: 130, height: 130 }} />
             ) : (
-              <Avatar alt="User Avatar" sx={{ width: 130, height: 130 }}></Avatar>
+              <Avatar alt="Truck Avatar" sx={{ width: 130, height: 130 }} />
             )}
           </Box>
         </label>
         <Typography
-        variant='h4'
+          variant='h4'
           sx={{
             color: 'white',
             textAlign: 'center',
@@ -219,12 +154,12 @@ function TruckProfile() {
                       alt="Plate Number"
                       width="30"
                       height="20"
-                      sx={{ marginRight: '30px' }}
+                      style={{ marginRight: '30px' }}
                     />
                     Plate Number
                   </div>
                 }
-                type="platNumber"
+                type="text"
                 name="platNumber"
                 placeholder="Enter your plate number"
                 value={formData.platNumber}
@@ -240,7 +175,7 @@ function TruckProfile() {
                 <Box sx={accountLabelContainer}>
                   <img
                     src={TruckIcon}
-                    sx={{ marginRight: '30px' }}
+                    style={{ marginRight: '30px' }}
                     alt="Truck-type"
                     width="30"
                     height="20"
@@ -272,12 +207,12 @@ function TruckProfile() {
                     alt="Tonnage"
                     width="30"
                     height="20"
-                    sx={{ marginRight: '30px' }}
+                    style={{ marginRight: '30px' }}
                   />
                   Weight Capacity
                 </div>
               }
-              type="maxLoadCapacity"
+              type="text"
               name="maxLoadCapacity"
               placeholder="Enter your Truck weight capacity"
               value={formData.maxLoadCapacity}
@@ -290,7 +225,7 @@ function TruckProfile() {
             <Button
               variant="contained"
               color="primary"
-              type="submit"
+              type="button"
               sx={styledSubmitButton}
               onClick={validateForm}
             >
@@ -306,7 +241,7 @@ function TruckProfile() {
               marginLeft: '15px'
             }}
           >
-            You can add more trucks to your fleet later in the settings page
+           
           </Typography>
         </Stack>
       </Box>

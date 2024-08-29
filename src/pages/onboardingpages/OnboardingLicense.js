@@ -32,7 +32,7 @@ const OnboardingLicense = () => {
 
   const handleButtonClick = () => {
     console.log('Proceed button clicked with file:', file);
-    navigate('/truckerhome'); // Redirect to truckerhome route
+    navigate('/truckonboardingprofile'); 
   };
 
   const triggerFileInput = () => {
