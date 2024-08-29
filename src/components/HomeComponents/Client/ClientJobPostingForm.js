@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Card,
@@ -8,7 +9,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Button
+  Button,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import DescIcon from '../../../assets/desc.svg';
 import TruckIcon from '../../../assets/truck.svg';
@@ -17,8 +20,12 @@ import TimeIcon from '../../../assets/time.svg';
 import InstructionIcon from '../../../assets/Vector (1).svg';
 import PriceIcon from '../../../assets/Vector (2).svg';
 import LoadingIcon from '../../../assets/loading.svg';
+import { useNavigate } from 'react-router-dom';
 
 function ClientJobPostingForm() {
+  const [openAlert, setOpenAlert] = useState(false);
+  const navigate = useNavigate();
+
   const styledCard = {
     width: 'calc(100% - 50px)',
     maxWidth: '380px',
@@ -74,6 +81,14 @@ function ClientJobPostingForm() {
     color: 'white'
   };
 
+  const handleSubmit = () => {
+    // Simulate a successful post request
+    setOpenAlert(true);
+    setTimeout(() => {
+      navigate('/truckerhome');
+    }, 1500); // Wait for 1.5 seconds to show the alert before redirecting
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Box sx={containerStyle}>
@@ -91,7 +106,7 @@ function ClientJobPostingForm() {
                           alt="cargo"
                           width="30"
                           height="20"
-                          sx={{ marginRight: '30px' }}
+                          style={{ marginRight: '30px' }}
                         />
                         Cargo Description
                       </div>
@@ -110,7 +125,7 @@ function ClientJobPostingForm() {
                         alt="trucktype"
                         width="30"
                         height="20"
-                        sx={{ marginRight: '25px' }}
+                        style={{ marginRight: '25px' }}
                       />
                       Required Truck Type
                     </Box>
@@ -136,7 +151,7 @@ function ClientJobPostingForm() {
                         alt="Location"
                         width="30"
                         height="20"
-                        sx={{ marginRight: '30px' }}
+                        style={{ marginRight: '30px' }}
                       />
                       Delivery Area
                     </Box>
@@ -159,7 +174,7 @@ function ClientJobPostingForm() {
                           alt="pickuplocation"
                           width="30"
                           height="20"
-                          sx={{ marginRight: '30px' }}
+                          style={{ marginRight: '30px' }}
                         />
                         Pickup Location
                       </div>
@@ -180,7 +195,7 @@ function ClientJobPostingForm() {
                           alt="dropofflocation"
                           width="30"
                           height="20"
-                          sx={{ marginRight: '30px' }}
+                          style={{ marginRight: '30px' }}
                         />
                         Dropoff Location
                       </div>
@@ -201,7 +216,7 @@ function ClientJobPostingForm() {
                           alt="time"
                           width="30"
                           height="20"
-                          sx={{ marginRight: '30px' }}
+                          style={{ marginRight: '30px' }}
                         />
                         Pickup Time
                       </div>
@@ -222,7 +237,7 @@ function ClientJobPostingForm() {
                           alt="instructions"
                           width="30"
                           height="20"
-                          sx={{ marginRight: '30px' }}
+                          style={{ marginRight: '30px' }}
                         />
                         Pickup Instructions
                       </div>
@@ -241,7 +256,7 @@ function ClientJobPostingForm() {
                         alt="loading"
                         width="30"
                         height="20"
-                        sx={{ marginRight: '30px' }}
+                        style={{ marginRight: '30px' }}
                       />
                       Loading & Offloading Service
                     </Box>
@@ -264,7 +279,7 @@ function ClientJobPostingForm() {
                           alt="Price"
                           width="30"
                           height="20"
-                          sx={{ marginRight: '30px' }}
+                          style={{ marginRight: '30px' }}
                         />
                         Price Per Load
                       </div>
@@ -275,7 +290,11 @@ function ClientJobPostingForm() {
               </Stack>
 
               <Box sx={buttonContainer}>
-                <Button variant="contained" sx={styledSubmitButton}>
+                <Button
+                  variant="contained"
+                  sx={styledSubmitButton}
+                  onClick={handleSubmit}
+                >
                   Post Request
                 </Button>
               </Box>
@@ -283,8 +302,18 @@ function ClientJobPostingForm() {
           </div>
         </Card>
       </Box>
+
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenAlert(false)}
+      >
+        <Alert onClose={() => setOpenAlert(false)} severity="success">
+          Request posted successfully!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
 
-export default ClientJobPostingForm;
+export default ClientJobPosting
