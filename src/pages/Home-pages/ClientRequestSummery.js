@@ -27,10 +27,9 @@ const ClientRequestSummery = () => {
   const accessToken = TokenSession ? JSON.parse(TokenSession).accessToken : null;
 
   useEffect(() => {
+    // Check if access token exists and get requests
     if (accessToken) {
       getRequests(accessToken);
-    } else {
-      console.error('No access token found');
     }
   }, [accessToken]);
 
